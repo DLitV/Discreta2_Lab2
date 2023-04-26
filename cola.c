@@ -17,7 +17,7 @@ struct s_head_t {
     unsigned int size;
 };
 
-cola empty_list (){
+cola empty_queue (){
     cola l = malloc(sizeof(struct s_head_t));
     l->first = NULL;
     l->last = NULL;
@@ -25,7 +25,7 @@ cola empty_list (){
     return l;
 }
 
-cola add (cola l, list_elem e){
+cola add_queue (cola l, list_elem e){
     list p = NULL;
     p = malloc(sizeof(struct s_list_t));
 
@@ -45,7 +45,7 @@ cola add (cola l, list_elem e){
     return l;
 }
 
-cola destroy_list (cola l){
+cola destroy_queue (cola l){
     list p;
     list aux = l->first;
     while ( aux != NULL){
@@ -63,7 +63,7 @@ cola destroy_list (cola l){
 }
 
 
-list_elem head (cola l){
+list_elem head_queue (cola l){
 
     list_elem e;
 
@@ -72,7 +72,7 @@ list_elem head (cola l){
     return e;
 }
 
-cola tail (cola l){
+cola tail_queue (cola l){
     list p;
     p = l->first;
     l->first = l->first->next;
@@ -88,6 +88,6 @@ cola tail (cola l){
     return l;
 }
 
-unsigned int length (cola l){
+unsigned int length_queue (cola l){
     return l->size;
 }

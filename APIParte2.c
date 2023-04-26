@@ -9,11 +9,9 @@
 //          (2^32)-1 ante error de memoria.
 u32 Greedy(Grafo G,u32* Orden,u32* Color){
     u32 n = NumeroDeVertices(G);
-    u32 m = NumeroDeLados(G);
-    u32 * coloreo = malloc(sizeof(u32)*n);
 
     //chequear error:
-    if (coloreo = NULL)
+    if (Color == NULL)
     {
         return max_u32;
     }
@@ -24,7 +22,7 @@ u32 Greedy(Grafo G,u32* Orden,u32* Color){
         //En esta implementacion el 0 significa "sin colorear"
         //coloreo va almacenando el color de cada vertice en el orden natural
         //esta funcion puede cambiarse para devolver el coloreo en si con "return coloreo;"
-        coloreo[i] = 0;
+        Color[i] = 0;
     }
     
     for (u32 i = 0; i < n; i++)
@@ -37,12 +35,12 @@ u32 Greedy(Grafo G,u32* Orden,u32* Color){
         //si no tiene vecinos es automaticamente color 1 y pasamos al sig vertice
         if (grado == 0)
         {
-            coloreo[vertice] = 1;
+            Color[vertice] = 1;
             continue;
         }
         
         //chequear error:
-        if (vecinos = NULL)
+        if (vecinos == NULL)
         {
             return max_u32;
         }
@@ -67,7 +65,7 @@ u32 Greedy(Grafo G,u32* Orden,u32* Color){
             color_valido = true;
             for (u32 j = 0; j < grado; j++)
             {
-                if (coloreo[vecinos[j]] == color)
+                if (Color[vecinos[j]] == color)
                 {
                     color_valido = false;
                     color++;
@@ -80,7 +78,7 @@ u32 Greedy(Grafo G,u32* Orden,u32* Color){
                 }
             }
         }
-        coloreo[vertice] = color; //si termina el for es porque el color actual es valido
+        Color[vertice] = color; //si termina el for es porque el color actual es valido
     }
     return colores; //devuelve el total de colores usado
 }
@@ -118,7 +116,7 @@ char OrdenImparPar(u32 n,u32* Orden,u32* Color){
 
     for (u32 i = 0; i < num_de_colores + 1; i++)
     {
-        imparpar[i] = empty_list();
+        imparpar[i] = empty_queue();
     }
     
     bool num_de_colores_es_impar = (num_de_colores % 2 == 1); 
@@ -147,7 +145,7 @@ char OrdenImparPar(u32 n,u32* Orden,u32* Color){
         if (num_de_colores == 0){
             indice = 0;
         }
-        imparpar[indice] = add (imparpar[indice], i);
+        imparpar[indice] = add_queue (imparpar[indice], i);
                                 //printf("cola: %u   vertice: %u   color: %u\n", indice, i, Color [i]);
     }
                                 //printf("\n\n\n\n\n");
@@ -157,11 +155,11 @@ char OrdenImparPar(u32 n,u32* Orden,u32* Color){
     indice = 0;
     for (u32 i = 0; i < num_de_colores + 1; i++)
     {
-        u32 size =  length(imparpar[i]);
+        u32 size =  length_queue(imparpar[i]);
         for (u32 j = 0; j < size; j++)
         {
-            Orden[indice] = head (imparpar[i]);
-            imparpar[i] = tail (imparpar[i]);
+            Orden[indice] = head_queue (imparpar[i]);
+            imparpar[i] = tail_queue (imparpar[i]);
                                 //printf("orden: %u   vertice: %u   color: %u\n", indice, Orden[indice], Color [Orden[indice]]);
             indice = indice + 1;
         }
@@ -179,7 +177,7 @@ char OrdenImparPar(u32 n,u32* Orden,u32* Color){
     
     for (u32 i = 0; i < num_de_colores + 1; i++)
     {
-        imparpar[i] = destroy_list(imparpar[i]);
+        imparpar[i] = destroy_queue(imparpar[i]);
     }
     free (imparpar);
 

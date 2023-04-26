@@ -1,0 +1,5 @@
+*.vscode
+*.o
+*.exe
+!Makefile.exe
+documentos_pesados

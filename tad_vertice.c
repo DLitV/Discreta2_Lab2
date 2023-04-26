@@ -34,7 +34,7 @@ vertice vertice_init (vertice v, u32 nombre){
 vertice vertice_sumar_vecino (vertice v, u32 vecino){
     assert (v != NULL);
 
-    v->vecinos = addl(v->vecinos, vecino);
+    v->vecinos = addl_list(v->vecinos, vecino);
 
     v->grado = v->grado + 1;
     return v;
@@ -79,11 +79,11 @@ vertice vertice_destruir_nodo_con_array(vertice v){
 
 vertice vertice_generar_array_adyacencia(vertice v){
     list lista = v->vecinos;
-    unsigned int n = length(lista);
+    unsigned int n = length_list(lista);
     for(unsigned int i = 0; i < n; i++)
     {
-        v->vecinos_array[i] = head(lista);
-        lista = tail(lista);
+        v->vecinos_array[i] = head_list(lista);
+        lista = tail_list(lista);
     }
     v = vertice_destruir_vecinos(v);
     return v;
