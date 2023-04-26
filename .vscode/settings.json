@@ -1,7 +1,9 @@
 {
     "files.associations": {
-        "stdlib.h": "c",
+        "apiparte2.h": "c",
+        "aniquilamientopositronicoionizantegravitatorio.h": "c",
+        "estructuragrafo.h": "c",
         "estructuragrafo23.h": "c",
-        "apiparte2.h": "c"
+        "stdbool.h": "c"
     }
 }
