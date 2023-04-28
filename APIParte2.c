@@ -263,6 +263,7 @@ char OrdenJedi(Grafo G,u32* Orden,u32* Color){
     {
         jedi[i] = destroy_queue(jedi[i]);
     }
+    free(accumulator_jedi);
     free (jedi);
 
     return '0';
