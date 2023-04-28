@@ -183,3 +183,89 @@ char OrdenImparPar(u32 n,u32* Orden,u32* Color){
 
     return '0';
 }
+
+
+char OrdenJedi(Grafo G,u32* Orden,u32* Color){
+
+    u32 v;
+    //Calculo nro de colores
+    u32 num_de_colores = 0;
+    u32 n = NumeroDeVertices(G);
+
+    for (u32 i = 0; i < n; i++)
+    {
+
+        if (Color[i] > num_de_colores){
+            num_de_colores = Color[i];
+        }
+    }
+
+    u32 *accumulator_jedi = calloc(num_de_colores + 1, sizeof(int));
+    //Pongo todos los valores en 0
+    for (u32 i = 0; i < num_de_colores + 1; i++)
+    {
+        accumulator_jedi[i] = 0;
+    }
+
+    //Creo un arreglo de listas de tamaño num_de_colores + 1
+    cola * jedi = calloc(num_de_colores + 1, sizeof(cola));
+
+    if (jedi == NULL)
+    {
+        printf("No se pudo alocar suficiente memoria para la lista de colas\n");
+        return '1';
+    }
+
+    for (u32 i = 0; i < num_de_colores + 1; i++)
+    {
+        jedi[i] = empty_queue();
+    }
+
+    //Agrego los vertices a las listas de acuerdo a su color
+    //y sumo el grado del vértice al acumulador de cada color
+    for (u32 i = 0; i < n; i++)
+    {
+        jedi[Color[i]] = add_queue(jedi[Color[i]], i);
+        accumulator_jedi[Color[i]] = accumulator_jedi[Color[i]] + Grado(i, G);
+    }
+
+    //Multiplico el acumulado de cada color por el color
+    for (u32 i = 0; i < num_de_colores + 1; i++)
+    {
+        accumulator_jedi[i] = accumulator_jedi[i] * i;
+    }
+
+    //Paso las cada lista de jedi al arreglo orden, empezando por la que tiene el mayor acumulado
+    v = 0;
+    while (v < n) 
+    {
+        u32 max = 0;
+        u32 color = 0;
+        for (u32 j = 0; j < num_de_colores + 1; j++)
+        {
+            if (accumulator_jedi[j] > max){
+                max = accumulator_jedi[j];
+                color = j;
+            }
+        }
+        accumulator_jedi[color] = 0;
+        u32 size =  length_queue(jedi[color]);
+        for (u32 j = 0; j < size; j++)
+        {
+            Orden[v] = head_queue (jedi[color]);
+            jedi[color] = tail_queue (jedi[color]);
+            v = v + 1;
+        }
+    }
+    
+    //libero memoria
+    for (u32 i = 0; i < num_de_colores + 1; i++)
+    {
+        jedi[i] = destroy_queue(jedi[i]);
+    }
+    free (jedi);
+
+    return '0';
+}
+
+ 
