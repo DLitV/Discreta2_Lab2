@@ -81,6 +81,17 @@ u32 Greedy(Grafo G,u32* Orden,u32* Color){
         Color[vertice] = color; //si termina el for es porque el color actual es valido
     }
     return colores; //devuelve el total de colores usado
+
+
+
+                                                        // u32 indice = 0;
+                                                        // for (u32 i = 0; i < NumeroDeVertices(G); i++)
+                                                        // {
+                                                        //     indice = Orden[i];
+                                                        //     Color[indice] = i % colores; 
+                                                        // }
+
+                                                        // return colores + 1;
 }
 
 
@@ -169,10 +180,10 @@ char OrdenImparPar(u32 n,u32* Orden,u32* Color){
 
                                 //printf("\n\n\n\n\n\n");
                                 //printf ("segundo for\n");
-                                for (u32 i = 0; i < n; i++)
-                                {
-                                    printf("orden: %u   vertice: %u   color: %u\n", i, Orden[i], Color [Orden[i]]);
-                                }
+                                // for (u32 i = 0; i < n; i++)
+                                // {
+                                //     printf("orden: %u   vertice: %u   color: %u\n", i, Orden[i], Color [Orden[i]]);
+                                // }
     
     
     for (u32 i = 0; i < num_de_colores + 1; i++)
@@ -235,12 +246,16 @@ char OrdenJedi(Grafo G,u32* Orden,u32* Color){
         accumulator_jedi[i] = accumulator_jedi[i] * i;
     }
 
+                                                    // u32 *debug = calloc(num_de_colores + 1, sizeof(int));
+                                                    // u32 indice_debug = 0;
+
     //Paso las cada lista de jedi al arreglo orden, empezando por la que tiene el mayor acumulado
     v = 0;
     while (v < n) 
     {
         u32 max = 0;
         u32 color = 0;
+
         for (u32 j = 0; j < num_de_colores + 1; j++)
         {
             if (accumulator_jedi[j] > max){
@@ -248,6 +263,8 @@ char OrdenJedi(Grafo G,u32* Orden,u32* Color){
                 color = j;
             }
         }
+                                                    // debug [indice_debug] = accumulator_jedi[color];
+                                                    // indice_debug ++;
         accumulator_jedi[color] = 0;
         u32 size =  length_queue(jedi[color]);
         for (u32 j = 0; j < size; j++)
@@ -257,6 +274,11 @@ char OrdenJedi(Grafo G,u32* Orden,u32* Color){
             v = v + 1;
         }
     }
+                                                    // for (u32 i = 0; i < n; i++)
+                                                    // {
+                                                    //     printf("orden: %u   vertice: %u   color: %u   peso del color: %u\n", i, Orden[i], Color [Orden[i]], debug[num_de_colores - Color [Orden[i]]]);
+                                                    // }
+
     
     //libero memoria
     for (u32 i = 0; i < num_de_colores + 1; i++)

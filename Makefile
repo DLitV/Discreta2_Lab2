@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -pedantic -std=c99 -g
 SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:.c=.o)
-TARGET = main_ejec
+TARGET = main
 
 .PHONY: clean
 
