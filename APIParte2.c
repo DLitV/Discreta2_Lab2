@@ -13,7 +13,7 @@ u32 Greedy(Grafo G, u32* Orden, u32* Color){
     for (u32 i = 0; i < n; i++){
         Color[i] = n;
     }
-    u32 colores_usados[n];
+    u32 * colores_usados = calloc(n, sizeof(u32));;
     for (u32 i = 0; i < n; i++){
         colores_usados[i] = 0;
     }
@@ -36,6 +36,7 @@ u32 Greedy(Grafo G, u32* Orden, u32* Color){
             colores = min_color;
         }
     }
+    free (colores_usados);
     return colores+1;
 
 
