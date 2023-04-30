@@ -77,7 +77,7 @@ int main()
         i ++;
     }
 
-        //printf("numero de colores %u\n", color);
+        printf("numero de colores %u\n", color);
 
     DestruirGrafo(G);
 
