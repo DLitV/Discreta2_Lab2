@@ -12,6 +12,11 @@ int main()
     Grafo G = NULL;
     G = ConstruirGrafo();
 
+    clock_t end2 = clock();
+    time_spent += (double)(end2 - begin) / CLOCKS_PER_SEC;
+    printf("The elapsed time is %f seconds, in the upload of the graph\n", time_spent);
+    time_spent = 0.0;
+
     u32 N = NumeroDeVertices(G);
     u32 * Orden = calloc(N, sizeof(u32));
     u32 * Orden1 = calloc(N, sizeof(u32));
@@ -33,6 +38,7 @@ int main()
 
     while (i < 512)
     {
+        clock_t begin2 = clock();
         if(selector < 16){
             color = Greedy (G, Orden, Color);
             res = OrdenImparPar (N, Orden, Color);
@@ -60,8 +66,18 @@ int main()
             }
         }
         res = res;
+
+        clock_t end3 = clock();
+        time_spent += (double)(end3 - begin2) / CLOCKS_PER_SEC;
+        printf("The elapsed time is %f seconds, por iteracion\n", time_spent);
+        time_spent = 0.0;
+
+
+        printf("iteracion %u\n\n", i * 2);
         i ++;
     }
+
+        //printf("numero de colores %u\n", color);
 
     DestruirGrafo(G);
 
