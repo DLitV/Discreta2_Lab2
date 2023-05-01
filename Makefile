@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -std=c99 -g
+CFLAGS = -Wall -Wextra -pedantic -std=c99 -O3
 SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = main
