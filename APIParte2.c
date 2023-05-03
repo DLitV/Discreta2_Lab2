@@ -128,61 +128,9 @@ char OrdenImparPar(u32 n,u32* Orden,u32* Color){
     return (char) 0;
 }
 
-
-void merge_coloreo(u32 * arr, u32 * orden, int start, int mid, int end) {
-    u32 * temp = malloc((end - start + 1) * sizeof(u32));
-    u32 * temporden = malloc((end - start + 1) * sizeof(u32));
-    int i = start, j = mid + 1, k = 0;
-
-    while (i <= mid && j <= end) {
-        if (arr[i] <= arr[j]) {
-            temp[k] = arr[i];
-            temporden[k] = orden[i];
-            i++;
-        } else {
-            temp[k] = arr[j];
-            temporden[k] = orden[j];
-            j++;
-        }
-        k++;
-    }
-
-    while (i <= mid) {
-        temp[k] = arr[i];
-        temporden[k] = orden[i];
-        i++;
-        k++;
-    }
-
-    while (j <= end) {
-        temp[k] = arr[j];
-        temporden[k] = orden[j];
-        j++;
-        k++;
-    }
-
-    for (i = start; i <= end; i++) {
-        arr[i] = temp[i - start];
-        orden [i] = temporden[i - start]; 
-    }
-
-    free(temp);
-    free(temporden);
-}
-
-void mergeSort_coloreo(u32 * arr, u32 * orden, int start, int end) {
-    if (start < end) {
-        int mid = (start + end) / 2;
-
-        mergeSort_coloreo(arr, orden, start, mid);
-        mergeSort_coloreo(arr, orden, mid + 1, end);
-
-        merge_coloreo(arr, orden, start, mid, end);
-    }
-}
-
-
 char OrdenJedi(Grafo G,u32* Orden,u32* Color){
+
+    u32 v;
     //Calculo nro de colores
     u32 num_de_colores = 0;
     u32 n = NumeroDeVertices(G);
@@ -195,7 +143,7 @@ char OrdenJedi(Grafo G,u32* Orden,u32* Color){
         }
     }
 
-    u32 *accumulator_jedi = calloc(num_de_colores + 1, sizeof(u32));
+    u32 *accumulator_jedi = calloc(num_de_colores + 1, sizeof(int));
     //Pongo todos los valores en 0
     for (u32 i = 0; i < num_de_colores + 1; i++)
     {
@@ -230,26 +178,29 @@ char OrdenJedi(Grafo G,u32* Orden,u32* Color){
         accumulator_jedi[i] = accumulator_jedi[i] * i;
     }
 
+
     //Paso las cada lista de jedi al arreglo orden, empezando por la que tiene el mayor acumulado
-    
-    u32 * indice = calloc(num_de_colores + 1, sizeof(u32));
-    for (u32 i = 0; i < num_de_colores + 1; i++)
+    v = 0;
+    while (v < n) 
     {
-        indice[i] = i;
-    }
+        u32 max = 0;
+        u32 color = 0;
 
-    mergeSort_coloreo(accumulator_jedi, indice, 0, num_de_colores);
+        for (u32 j = 0; j < num_de_colores + 1; j++)
+        {
+            if (accumulator_jedi[j] > max){
+                max = accumulator_jedi[j];
+                color = j;
+            }
+        }
 
-    u32 v = 0;
-    for (u32 i = num_de_colores + 1 ; i >= 1; i--)
-    {
-        u32 color = indice[i - 1]; 
+        accumulator_jedi[color] = 0;
         u32 size =  length_queue(jedi[color]);
         for (u32 j = 0; j < size; j++)
         {
             Orden[v] = head_queue (jedi[color]);
             jedi[color] = tail_queue (jedi[color]);
-            v++;
+            v = v + 1;
         }
     }
     
@@ -260,7 +211,6 @@ char OrdenJedi(Grafo G,u32* Orden,u32* Color){
     }
     free(accumulator_jedi);
     free (jedi);
-    free (indice);
 
     return (char) 0;
 }
