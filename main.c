@@ -29,7 +29,13 @@ int main()
     u32 selector = 0;
     u32 i = 0;
     color = Greedy (G, Orden, Color);
+    if (color == 4294967295){
+        return 1;
+    }
     color = Greedy (G, Orden1, Color1);
+    if (color == 4294967295){
+        return 1;
+    }
 
     while (i < 500){
         
@@ -39,7 +45,9 @@ int main()
                 break;
             }
             color = Greedy (G, Orden, Color);
-            
+            if (color == 4294967295){
+                break;
+            }
             
 
             res = OrdenJedi (G, Orden1, Color1);
@@ -47,6 +55,9 @@ int main()
                 break;
             }
             color1 = Greedy (G, Orden1, Color1);
+            if (color == 4294967295){
+                break;
+            }
             selector ++;
         }
         else{
@@ -56,12 +67,18 @@ int main()
                 break;
             }
             color1 = Greedy (G, Orden1, Color1);
+            if (color == 4294967295){
+                break;
+            }
 
             res = OrdenJedi (G, Orden, Color);
             if (res == 1){
                 break;
             }
             color1 = Greedy (G, Orden, Color);
+            if (color == 4294967295){
+                break;
+            }
 
             selector ++;
             if (selector == 32){
@@ -71,7 +88,7 @@ int main()
         i ++;
     }
 
-    if (res == 1){
+    if (res == 1 || color == 4294967295){
         return 1;
     }
     if (color <= color1){
@@ -82,8 +99,11 @@ int main()
     }
     DestruirGrafo(G);
 
+
     free(Orden);
+    free(Orden1);
     free(Color);
+    free(Color1);
 
     clock_t end = clock();
     time_spent += (double)(end - begin) / CLOCKS_PER_SEC;

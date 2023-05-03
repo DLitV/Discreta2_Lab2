@@ -4,6 +4,7 @@
         "aniquilamientopositronicoionizantegravitatorio.h": "c",
         "estructuragrafo.h": "c",
         "estructuragrafo23.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "algorithm": "c"
     }
 }
