@@ -32,8 +32,8 @@ int main()
     if (color == 4294967295){
         return 1;
     }
-    color = Greedy (G, Orden1, Color1);
-    if (color == 4294967295){
+    color1 = Greedy (G, Orden1, Color1);
+    if (color1 == 4294967295){
         return 1;
     }
 
@@ -55,7 +55,7 @@ int main()
                 break;
             }
             color1 = Greedy (G, Orden1, Color1);
-            if (color == 4294967295){
+            if (color1 == 4294967295){
                 break;
             }
             selector ++;
@@ -67,7 +67,7 @@ int main()
                 break;
             }
             color1 = Greedy (G, Orden1, Color1);
-            if (color == 4294967295){
+            if (color1 == 4294967295){
                 break;
             }
 
@@ -75,20 +75,20 @@ int main()
             if (res == 1){
                 break;
             }
-            color1 = Greedy (G, Orden, Color);
+            color = Greedy (G, Orden, Color);
             if (color == 4294967295){
                 break;
             }
-
             selector ++;
             if (selector == 32){
                 selector = 0;
             }
         }
         i ++;
+        printf("i: %u\n", i);
     }
 
-    if (res == 1 || color == 4294967295){
+    if (res == 1 || color == 4294967295 || color1 == 4294967295){
         return 1;
     }
     if (color <= color1){
